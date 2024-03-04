@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "concurrently \"npm run start\" \"npm run postinstall\"",
+    "build": "concurrently \"npm run front\" \"npm run postinstall\"",
     "front": "next build",
     "start": "next start",
     "lint": "next lint",
