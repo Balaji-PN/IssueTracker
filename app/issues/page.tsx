@@ -3,7 +3,7 @@ import { IssueStatusBadge, Link } from "../components";
 import IssueActions from "./IssueActions";
 
 const Issues = async () => {
-  const issues = await prisma.issue.findMany();
+  const issues = await prisma!.issue.findMany();
 
   return (
     <div className="flex flex-col justify-center gap-4">
