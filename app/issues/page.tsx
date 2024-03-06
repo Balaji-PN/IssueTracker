@@ -1,12 +1,9 @@
-import { Button, Table } from "@radix-ui/themes";
-import Link from "../components/Link";
-import IssueStatusBadge from "../components/IssueStatusBadge";
+import { Table } from "@radix-ui/themes";
+import { IssueStatusBadge, Link } from "../components";
 import IssueActions from "./IssueActions";
-import delay from "delay";
 
 const Issues = async () => {
   const issues = await prisma.issue.findMany();
-  await delay(2000);
 
   return (
     <div className="flex flex-col justify-center gap-4">
