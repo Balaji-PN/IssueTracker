@@ -7,7 +7,7 @@ const issues = [1, 2, 3, 4, 5];
 const loading = () => {
   return (
     <div className="flex flex-col justify-center gap-4">
-      <ButtonPage name="Create New Issue" link="/issues/new" icon="OpenInNewWindowIcon"/>
+      <ButtonPage name="Create New Issue" link="/issues/new" />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
