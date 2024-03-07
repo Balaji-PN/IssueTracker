@@ -1,13 +1,13 @@
-import { Skeleton } from "@/app/components";
-import { Table } from "@radix-ui/themes";
-import ButtonPage from "../components/ButtonComp";
+import { IssueStatusBadge } from '@/app/components';
+import prisma from '@/prisma/client';
+import { Table } from '@radix-ui/themes';
+import Link from 'next/link';
 
-const issues = [1, 2, 3, 4, 5];
+const GetIssue = async() => {
+  const issues = await prisma.issue.findMany();
 
-const loading = () => {
   return (
-    <div className="flex flex-col justify-center gap-4">
-      <ButtonPage name="Create New Issue" link="/issues/new" icon="OpenInNewWindowIcon"/>
+    <div>
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -22,25 +22,25 @@ const loading = () => {
         </Table.Header>
         <Table.Body>
           {issues?.map((issue) => (
-            <Table.Row key={issue}>
+            <Table.Row key={issue.id}>
               <Table.Cell>
-                <Skeleton />
+                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
                 <div className="block md:hidden">
-                  <Skeleton />
+                  <IssueStatusBadge status={issue.status} />
                 </div>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <Skeleton />
+                <IssueStatusBadge status={issue.status} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <Skeleton />
+                {issue.createdAt.toDateString()}
               </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
       </Table.Root>
     </div>
-  );
-};
+  )
+}
 
-export default loading;
+export default GetIssue
