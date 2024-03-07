@@ -1,9 +1,9 @@
-import { IssueStatusBadge } from '@/app/components';
-import prisma from '@/prisma/client';
-import { Table } from '@radix-ui/themes';
-import Link from 'next/link';
+import { IssueStatusBadge } from "@/app/components";
+import prisma from "@/prisma/client";
+import { Table } from "@radix-ui/themes";
+import Link from "next/link";
 
-const GetIssue = async() => {
+const GetIssue = async () => {
   const issues = await prisma.issue.findMany();
 
   return (
@@ -40,7 +40,7 @@ const GetIssue = async() => {
         </Table.Body>
       </Table.Root>
     </div>
-  )
-}
+  );
+};
 
-export default GetIssue
+export default GetIssue;
