@@ -44,7 +44,7 @@ const IssueActions = ({ detailsId }: { detailsId: number }) => {
           <AlertDialog.Content>
             <AlertDialog.Title> Delete Issue</AlertDialog.Title>
             <AlertDialog.Description>
-              Are you sure want to Delete this issue? This is can't be undone
+              Are you sure want to Delete this issue? This is can not be undone
             </AlertDialog.Description>
             <Flex mt={"4"} gap={"3"} justify={"end"}>
               <AlertDialog.Cancel>
@@ -65,7 +65,7 @@ const IssueActions = ({ detailsId }: { detailsId: number }) => {
         <AlertDialog.Content>
           <AlertDialog.Title>Error on Deleting</AlertDialog.Title>
           <AlertDialog.Description>
-            This is Issue wasn't deleted currently due to some Problems
+            This is Issue was not deleted currently due to some Problems
           </AlertDialog.Description>
           <AlertDialog.Action>
             <Button
