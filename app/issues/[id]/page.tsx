@@ -3,6 +3,7 @@ import { Box, Card, Flex, Grid, Heading } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import IssueActions from "./IssueActions";
+import prisma from "@/prisma/client";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const details = await prisma!.issue.findUnique({
