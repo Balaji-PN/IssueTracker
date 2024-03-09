@@ -1,6 +1,6 @@
 import { Skeleton } from "@/app/components";
 import { Table } from "@radix-ui/themes";
-import ButtonPage from "../components/ButtonComp";
+import ButtonPage from "../../components/ButtonComp";
 
 const issues = [1, 2, 3, 4, 5];
 

@@ -1,16 +1,10 @@
 import { IssueStatusBadge } from "@/app/components/";
-import { Pencil2Icon } from "@radix-ui/react-icons";
-import { Box, Button, Card, Flex, Grid, Heading } from "@radix-ui/themes";
-import Link from "next/link";
+import { Box, Card, Flex, Grid, Heading } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
-import { MdOutlineDelete } from "react-icons/md";
 import ReactMarkdown from "react-markdown";
+import IssueActions from "./IssueActions";
 
-interface Props {
-  params: { id: string };
-}
-
-const IssueDetailPage = async ({ params }: Props) => {
+const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const details = await prisma!.issue.findUnique({
     where: { id: parseInt(params.id) },
   });
@@ -30,18 +24,7 @@ const IssueDetailPage = async ({ params }: Props) => {
         </Card>
       </Box>
       <Box>
-        <Link href={`/issues/${details.id}/edit`}>
-          <Flex direction={"column"} gap={"3"}>
-            <Button>
-              <Pencil2Icon />
-              Edit Issue{" "}
-            </Button>
-            <Button color="red">
-              <MdOutlineDelete size={18} />
-              Delete Issue
-            </Button>
-          </Flex>
-        </Link>
+        <IssueActions detailsId={details.id} />
       </Box>
     </Grid>
   );

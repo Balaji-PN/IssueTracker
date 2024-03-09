@@ -1,4 +1,5 @@
 import { IssueSchema } from "@/app/IssueSchema";
+import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
@@ -26,4 +27,20 @@ export async function PATCH(
   });
 
   return NextResponse.json({ updatedIssue, body });
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const issue = await prisma.issue.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+
+  if (!issue)
+    return Response.json({ error: "Invalid Request" }, { status: 404 });
+
+  await prisma.issue.delete({ where: { id: issue.id } });
+
+  return Response.json({});
 }

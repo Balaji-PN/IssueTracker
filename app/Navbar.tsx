@@ -13,7 +13,7 @@ const Navbar = () => {
     },
     {
       label: "Issues",
-      href: "/issues",
+      href: "/issues/list",
     },
   ];
   const curPath = usePathname();
@@ -30,7 +30,8 @@ const Navbar = () => {
             "text-zinc-400": link.href !== curPath,
             "text-black": link.href === curPath,
             "hover:text-black transition-colors": true,
-          })}>
+          })}
+        >
           {link.label}
         </Link>
       ))}
