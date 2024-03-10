@@ -1,11 +1,34 @@
 "use client";
 
+import { Avatar, Box, Container, DropdownMenu, Flex } from "@radix-ui/themes";
 import classNames from "classnames";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
+import Skeleton from "react-loading-skeleton";
 
 const Navbar = () => {
+  return (
+    <nav className="py-3 border-b mb-5 text-xl px-2">
+      <Container>
+        <Flex justify="between">
+          <Flex align="center" gap="4">
+            <Link href={"/"}>
+              <AiFillBug />
+            </Link>
+            <NavLinks />
+          </Flex>
+          <Flex>
+            <AuthStatus />
+          </Flex>
+        </Flex>
+      </Container>
+    </nav>
+  );
+};
+
+const NavLinks = () => {
   const links = [
     {
       label: "Dashboard",
@@ -17,25 +40,56 @@ const Navbar = () => {
     },
   ];
   const curPath = usePathname();
+
   return (
-    <nav className="flex items-center gap-8 px-4 h-16 border-b mb-5 text-xl">
-      <Link href={"/"}>
-        <AiFillBug />
-      </Link>
+    <Flex gap={"4"}>
       {links.map((link) => (
         <Link
           key={link.href}
           href={link.href}
           className={classNames({
-            "text-zinc-400": link.href !== curPath,
-            "text-black": link.href === curPath,
-            "hover:text-black transition-colors": true,
+            "!text-black": link.href === curPath,
+            "nav-link": true,
           })}
         >
           {link.label}
         </Link>
       ))}
-    </nav>
+    </Flex>
+  );
+};
+
+const AuthStatus = () => {
+  const { status, data } = useSession();
+
+  if (status === "unauthenticated")
+    return (
+      <Link href={"/api/auth/signin"} className="nav-link">
+        Login
+      </Link>
+    );
+
+  if (status === "loading") return <Skeleton width="3rem" />;
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <Avatar
+          src={data!.user!.image!}
+          fallback="?"
+          radius="full"
+          className="cursor-pointer"
+          size={"2"}
+          referrerPolicy="no-referrer"
+        />
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Label>{data!.user!.email!}</DropdownMenu.Label>
+        <Link href={"/api/auth/signout"}>
+          <DropdownMenu.Item>Logout</DropdownMenu.Item>
+        </Link>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   );
 };
 

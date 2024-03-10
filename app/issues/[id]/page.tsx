@@ -1,11 +1,16 @@
+import authOptions from "@/app/auth/authOptions";
 import { IssueStatusBadge } from "@/app/components/";
+import prisma from "@/prisma/client";
 import { Box, Card, Flex, Grid, Heading } from "@radix-ui/themes";
+import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import IssueActions from "./IssueActions";
-import prisma from "@/prisma/client";
+import AssignIssue from "./AssignIssue";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
+  const session = await getServerSession(authOptions);
+
   const details = await prisma!.issue.findUnique({
     where: { id: parseInt(params.id) },
   });
@@ -24,9 +29,12 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
           <ReactMarkdown>{details.description}</ReactMarkdown>
         </Card>
       </Box>
-      <Box>
-        <IssueActions detailsId={details.id} />
-      </Box>
+      {session && (
+        <Flex direction="column" gap="3">
+          <AssignIssue />
+          <IssueActions detailsId={details.id} />
+        </Flex>
+      )}
     </Grid>
   );
 };

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "./Navbar";
 import "./globals.css";
+import Session from "./auth/Session";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,12 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Theme accentColor="violet">
-          <Navbar />
-          <main className="px-8">
-            <Container>{children}</Container>
-          </main>
-        </Theme>
+        <Session>
+          <Theme accentColor="violet">
+            <Navbar />
+            <main className="px-8">
+              <Container>{children}</Container>
+            </main>
+          </Theme>
+        </Session>
       </body>
     </html>
   );
