@@ -5,8 +5,8 @@ import { Box, Card, Flex, Grid, Heading } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
-import IssueActions from "./IssueActions";
 import AssignIssue from "./AssignIssue";
+import IssueActions from "./IssueActions";
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const session = await getServerSession(authOptions);
@@ -31,7 +31,7 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
       </Box>
       {session && (
         <Flex direction="column" gap="3">
-          <AssignIssue />
+          <AssignIssue issue={details} />
           <IssueActions detailsId={details.id} />
         </Flex>
       )}
