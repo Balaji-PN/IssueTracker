@@ -3,7 +3,7 @@ import GetIssue from "./GetIssue";
 import IssueActions from "./IssueActions";
 
 interface Props {
-  searchParams: { status: Status; orderBy: keyof Issue; sort: "asc" | "desc" };
+  searchParams: { status: Status; orderBy: keyof Issue; sort: "asc" | "desc"; page: string };
 }
 
 const IssuesPage = ({ searchParams }: Props) => {
@@ -14,6 +14,7 @@ const IssuesPage = ({ searchParams }: Props) => {
         curstatus={searchParams.status}
         orderBy={searchParams.orderBy}
         sort={searchParams.sort}
+        page={searchParams.page}
       />
     </div>
   );

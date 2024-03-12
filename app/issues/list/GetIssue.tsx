@@ -1,4 +1,5 @@
 import { IssueStatusBadge } from "@/app/components";
+import Pagination from "@/app/components/Pagination";
 import prisma from "@/prisma/client";
 import { Issue, Status } from "@prisma/client";
 import { ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
@@ -9,12 +10,17 @@ interface Props {
   curstatus: Status;
   orderBy: keyof Issue;
   sort: "asc" | "desc";
+  page: string;
 }
 
-const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
+const GetIssue = async ({ curstatus, orderBy, sort, page }: Props) => {
   const columns: { label: string; value: keyof Issue; className?: string }[] = [
     { label: "Issue", value: "title" },
-    { label: "Status", value: "status", className: "hidden md:table-cell" },
+    {
+      label: "Status",
+      value: "status",
+      className: "hidden md:table-cell",
+    },
     {
       label: "Created At",
       value: "createdAt",
@@ -25,9 +31,14 @@ const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
   const statuses = Object.values(Status);
   const status = statuses.includes(curstatus) ? curstatus : undefined;
 
+  const curpage = parseInt(page) || 1;
+  const pageSize = 10;
+
   const issues = await prisma.issue.findMany({
     where: { status },
     orderBy: { [orderBy]: sort },
+    skip: (curpage - 1) * 10,
+    take: pageSize,
   });
 
   let colcur: string;
@@ -35,6 +46,8 @@ const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
     sort === "asc" ? (colcur = "desc") : (colcur = "asc");
   };
   cur();
+
+  const issueCount = await prisma.issue.count({ where: { status } });
 
   return (
     <>
@@ -51,16 +64,16 @@ const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
                       sort: colcur,
                     },
                   }}
-                  className = column.className
+                  className={column.className}
                 >
                   {column.label}
+                  {column.value === orderBy && sort === "asc" && (
+                    <ArrowUpIcon className="inline mx-2" />
+                  )}
+                  {column.value === orderBy && sort === "desc" && (
+                    <ArrowDownIcon className="inline mx-2" />
+                  )}
                 </Link>
-                {column.value === orderBy && sort === 'asc' && (
-                  <ArrowUpIcon className="inline mx-2" />
-                )}
-                {column.value === orderBy && sort === 'desc' && (
-                  <ArrowDownIcon className="inline mx-2" />
-                )}
               </Table.ColumnHeaderCell>
             ))}
           </Table.Row>
@@ -84,6 +97,12 @@ const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
           ))}
         </Table.Body>
       </Table.Root>
+      <Pagination
+        currentPage={curpage}
+        itemCount={issueCount}
+        pageSize={pageSize}
+        searchParams={{ curstatus, orderBy, sort, page }}
+      />
     </>
   );
 };
