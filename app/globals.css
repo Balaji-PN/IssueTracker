@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "./preflight.css";
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -19,9 +20,6 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: var(--background-start-rgb);
-}
-
-@layer base {
 }
 
 @layer utilities {
