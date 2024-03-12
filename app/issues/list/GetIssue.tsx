@@ -37,7 +37,7 @@ const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
   cur();
 
   return (
-    <div>
+    <>
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -58,7 +58,7 @@ const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
                 {column.value === orderBy && sort === 'asc' && (
                   <ArrowUpIcon className="inline mx-2" />
                 )}
-                {column.value + "desc" === orderBy && sort === 'desc' && (
+                {column.value === orderBy && sort === 'desc' && (
                   <ArrowDownIcon className="inline mx-2" />
                 )}
               </Table.ColumnHeaderCell>
@@ -84,7 +84,7 @@ const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
           ))}
         </Table.Body>
       </Table.Root>
-    </div>
+    </>
   );
 };
 
