@@ -21,6 +21,9 @@ body {
   background: var(--background-start-rgb);
 }
 
+@layer base {
+}
+
 @layer utilities {
   .nav-link {
     @apply text-zinc-400 hover:text-black transition-colors;

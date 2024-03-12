@@ -1,11 +1,20 @@
-import { ButtonComp } from "@/app/components";
+import { Issue, Status } from "@prisma/client";
 import GetIssue from "./GetIssue";
+import IssueActions from "./IssueActions";
 
-const IssuesPage = () => {
+interface Props {
+  searchParams: { status: Status; orderBy: keyof Issue; sort: "asc" | "desc" };
+}
+
+const IssuesPage = ({ searchParams }: Props) => {
   return (
     <div className="flex flex-col justify-center gap-4">
-      <ButtonComp name="Create New Issue" link="/issues/new" />
-      <GetIssue />
+      <IssueActions />
+      <GetIssue
+        curstatus={searchParams.status}
+        orderBy={searchParams.orderBy}
+        sort={searchParams.sort}
+      />
     </div>
   );
 };
