@@ -51,13 +51,14 @@ const GetIssue = async ({ curstatus, orderBy, sort }: Props) => {
                       sort: colcur,
                     },
                   }}
+                  className = column.className
                 >
                   {column.label}
                 </Link>
-                {column.value + "asec" === orderBy && (
+                {column.value === orderBy && sort === 'asc' && (
                   <ArrowUpIcon className="inline mx-2" />
                 )}
-                {column.value + "desc" === orderBy && (
+                {column.value + "desc" === orderBy && sort === 'desc' && (
                   <ArrowDownIcon className="inline mx-2" />
                 )}
               </Table.ColumnHeaderCell>
