@@ -1,5 +1,4 @@
-import { IssueStatusBadge } from "@/app/components";
-import Pagination from "@/app/components/Pagination";
+import { IssueStatusBadge, Pagination } from "@/app/components";
 import prisma from "@/prisma/client";
 import { Issue, Status } from "@prisma/client";
 import { ArrowDownIcon, ArrowUpIcon } from "@radix-ui/react-icons";
@@ -62,6 +61,7 @@ const GetIssue = async ({ curstatus, orderBy, sort, page }: Props) => {
                       status: curstatus,
                       orderBy: column.value,
                       sort: colcur,
+                      page,
                     },
                   }}
                   className={column.className}
