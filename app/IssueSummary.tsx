@@ -1,6 +1,7 @@
 import { Status } from "@prisma/client";
 import { Card, Flex, Text } from "@radix-ui/themes";
 import Link from "next/link";
+import prisma from "@/prisma/client";
 
 const IssueSummary = async () => {
   const open = await prisma.issue.count({ where: { status: "OPEN" } });
