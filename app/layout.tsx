@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import "./globals.css";
 import Session from "./auth/Session";
 import QueryClientProvider from "./QueryClientProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,7 +30,10 @@ export default function RootLayout({
             <Theme accentColor="violet">
               <Navbar />
               <main className="px-8">
-                <Container>{children}</Container>
+                <Container>
+                  {children}
+                  <Analytics />
+                </Container>
               </main>
             </Theme>
           </Session>

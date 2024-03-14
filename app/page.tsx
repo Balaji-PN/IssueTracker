@@ -3,6 +3,7 @@ import IssueSummary from "./IssueSummary";
 import LatestIssue from "./LatestIssue";
 import { Flex, Grid } from "@radix-ui/themes";
 import { Metadata } from "next";
+import prisma from "@/prisma/client";
 
 const IssueChart = dynamic(() => import("@/app/IssueChart"), {
   ssr: false,
