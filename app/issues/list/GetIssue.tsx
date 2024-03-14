@@ -101,7 +101,7 @@ const GetIssue = async ({ curstatus, orderBy, sort, page }: Props) => {
         currentPage={curpage}
         itemCount={issueCount}
         pageSize={pageSize}
-        searchParams={{ curstatus, orderBy, sort, page }}
+        searchParams={{ status: curstatus, orderBy, sort, page }}
       />
     </>
   );
