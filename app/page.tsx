@@ -1,11 +1,13 @@
-import dynamic from "next/dynamic";
+import lazy from "next/dynamic";
 import IssueSummary from "./IssueSummary";
 import LatestIssue from "./LatestIssue";
 import { Flex, Grid } from "@radix-ui/themes";
 import { Metadata } from "next";
 import prisma from "@/prisma/client";
 
-const IssueChart = dynamic(() => import("@/app/IssueChart"), {
+export const dynamic = "force-dynamic";
+
+const IssueChart = lazy(() => import("@/app/IssueChart"), {
   ssr: false,
 });
 

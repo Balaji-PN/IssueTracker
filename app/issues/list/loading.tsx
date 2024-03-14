@@ -1,13 +1,16 @@
 import { Skeleton } from "@/app/components";
-import { Table } from "@radix-ui/themes";
-import ButtonPage from "../../components/ButtonComp";
+import { Flex, Table } from "@radix-ui/themes";
+import ButtonComp from "../../components/ButtonComp";
 
 const issues = [1, 2, 3, 4, 5];
 
 const loading = () => {
   return (
     <div className="flex flex-col justify-center gap-4">
-      <ButtonPage name="Create New Issue" link="/issues/new" />
+      <Flex justify="between">
+        <Skeleton width={"20px"} />
+        <ButtonComp name="Create New Issue" link="/issues/new" />
+      </Flex>
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
