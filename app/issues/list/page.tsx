@@ -1,9 +1,15 @@
 import { Issue, Status } from "@prisma/client";
 import GetIssue from "./GetIssue";
 import IssueActions from "./IssueActions";
+import { Metadata } from "next";
 
 interface Props {
-  searchParams: { status: Status; orderBy: keyof Issue; sort: "asc" | "desc"; page: string };
+  searchParams: {
+    status: Status;
+    orderBy: keyof Issue;
+    sort: "asc" | "desc";
+    page: string;
+  };
 }
 
 const IssuesPage = ({ searchParams }: Props) => {
@@ -22,3 +28,8 @@ const IssuesPage = ({ searchParams }: Props) => {
 
 export const dynamic = "force-dynamic";
 export default IssuesPage;
+
+export const metadata: Metadata = {
+  title: "Issue Tracker -Issue List",
+  description: "View all issues of the project",
+};

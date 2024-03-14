@@ -3,6 +3,8 @@ import prisma from "@/prisma/client";
 import Link from "next/link";
 import { IssueStatusBadge } from "./components";
 
+export const dynamic = "force-dynamic";
+
 const LatestIssue = async () => {
   const issues = await prisma.issue.findMany({
     orderBy: { createdAt: "desc" },

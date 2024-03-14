@@ -7,13 +7,16 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import AssignIssue from "./AssignIssue";
 import IssueActions from "./IssueActions";
+import { cache } from "react";
+
+const fetchIssue = cache((issueId: number) =>
+  prisma.issue.findUnique({ where: { id: issueId } })
+);
 
 const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
   const session = await getServerSession(authOptions);
 
-  const details = await prisma!.issue.findUnique({
-    where: { id: parseInt(params.id) },
-  });
+  const details = await fetchIssue(parseInt(params.id));
 
   if (!details) return notFound();
 
@@ -40,3 +43,12 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
 };
 
 export default IssueDetailPage;
+
+export async function generateMetaData({ params }: { params: { id: string } }) {
+  const issue = await fetchIssue(parseInt(params.id));
+
+  return {
+    title: `Details of the issue ${issue?.id}`,
+    description: `Details the issue ${issue?.title}`,
+  };
+}
