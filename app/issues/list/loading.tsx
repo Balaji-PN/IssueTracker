@@ -8,7 +8,7 @@ const loading = () => {
   return (
     <div className="flex flex-col justify-center gap-4">
       <Flex justify="between">
-        <Skeleton width={"20px"} />
+        <Skeleton width="2" />
         <ButtonComp name="Create New Issue" link="/issues/new" />
       </Flex>
       <Table.Root variant="surface">

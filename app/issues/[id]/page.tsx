@@ -4,11 +4,12 @@ import prisma from "@/prisma/client";
 import { Box, Card, Flex, Grid, Heading } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import ReactMarkdown from "react-markdown";
 import AssignIssue from "./AssignIssue";
 import IssueActions from "./IssueActions";
-import { cache } from "react";
-import { Metadata } from "next";
+
+export const dynamic = "force-dynamic";
 
 const fetchIssue = cache((issueId: number) =>
   prisma.issue.findUnique({ where: { id: issueId } })
@@ -54,8 +55,3 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     description: "Details the issue " + issue?.title,
   };
 }
-
-// export const metadata = {
-//   title: "Details of the issue",
-//   description: "Detils of the particular issue",
-// };
