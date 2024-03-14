@@ -8,6 +8,7 @@ import ReactMarkdown from "react-markdown";
 import AssignIssue from "./AssignIssue";
 import IssueActions from "./IssueActions";
 import { cache } from "react";
+import { Metadata } from "next";
 
 const fetchIssue = cache((issueId: number) =>
   prisma.issue.findUnique({ where: { id: issueId } })
@@ -44,11 +45,17 @@ const IssueDetailPage = async ({ params }: { params: { id: string } }) => {
 
 export default IssueDetailPage;
 
-export async function generateMetaData({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  console.log("meta data invoked");
   const issue = await fetchIssue(parseInt(params.id));
 
   return {
-    title: `Details of the issue ${issue?.id}`,
-    description: `Details the issue ${issue?.title}`,
+    title: "Details of the issue " + issue?.id,
+    description: "Details the issue " + issue?.title,
   };
 }
+
+// export const metadata = {
+//   title: "Details of the issue",
+//   description: "Detils of the particular issue",
+// };

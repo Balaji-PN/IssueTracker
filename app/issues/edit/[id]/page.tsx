@@ -22,7 +22,7 @@ const ListIssues = async ({ params }: { params: { id: string } }) => {
 
 export default ListIssues;
 
-export async function generateMetaData({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: { params: { id: string } }) {
   const issue = await fetchIssue(parseInt(params.id));
 
   return {
