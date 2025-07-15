@@ -1,35 +1,80 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Project Description
+This is a full-stack Issue Tracker application built with Next.js, Prisma, and NextAuth.js. It allows users to create, manage, and track issues, providing a comprehensive solution for project management and bug tracking.
 
-First, run the development server:
+## Features
+- User authentication (Google OAuth)
+- Create, view, edit, and delete issues
+- Assign issues to users
+- Filter and sort issues by status
+- Pagination for issue lists
+- Issue status badges
+- Markdown support for issue descriptions
+- Responsive design
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Flow Diagram
+![Flow Diagram](./flow-diagram.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
+**Frontend:**
+- Next.js
+- React
+- Radix UI Themes
+- Recharts (for charts)
+- React Hook Form (for forms)
+- Zod (for validation)
+- Axios (for API requests)
+- Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Backend:**
+- Next.js API Routes
+- Prisma (ORM)
+- PostgreSQL (Database)
+- NextAuth.js (for authentication)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Prerequisites
+- Node.js (v18 or later)
+- PostgreSQL database
+- Git
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository_url>
+   cd issue-tracker
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add the following:
+   ```env
+   DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
+   NEXTAUTH_URL="http://localhost:3000"
+   NEXTAUTH_SECRET="YOUR_NEXTAUTH_SECRET"
+   GOOGLE_CLIENT_ID="YOUR_GOOGLE_CLIENT_ID"
+   GOOGLE_CLIENT_SECRET="YOUR_GOOGLE_CLIENT_SECRET"
+   ```
+   - Replace `DATABASE_URL` with your PostgreSQL connection string.
+   - Generate a strong secret for `NEXTAUTH_SECRET` (e.g., using `openssl rand -base64 32`).
+   - Obtain `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` from the Google Cloud Console.
 
-## Deploy on Vercel
+4. Database Migrations:
+   Apply Prisma migrations to set up your database schema:
+   ```bash
+   npx prisma migrate dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Usage
+
+1. Run the development server:
+   ```bash
+   npm run dev
+   ```
+2. Open your browser and visit `http://localhost:3000`
 
